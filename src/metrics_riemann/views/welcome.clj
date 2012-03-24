@@ -6,4 +6,11 @@
 
 (defpage "/welcome" []
          (common/layout
-           [:p "Welcome to metrics-riemann"]))
+          [:p "Welcome to metrics-riemann"]))
+
+(defpage "/my-page" []
+  (common/site-layout
+   [:h1 "This is my first page!"]
+   [:p "Hope you like it!"]))
+
+

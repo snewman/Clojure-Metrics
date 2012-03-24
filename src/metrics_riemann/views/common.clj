@@ -10,3 +10,11 @@
               [:body
                [:div#wrapper
                 content]]))
+
+(defpartial site-layout [& content]
+  (html5
+    [:head
+      [:title "my site"]]
+    [:body
+      [:div#wrapper
+        content]]))
