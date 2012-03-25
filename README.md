@@ -1,6 +1,6 @@
 # metrics-riemann
 
-A website written in noir. 
+A simple fake ecommerce site used to demonstrate the use of the Metrics library in Clojure
 
 ## Usage
 
@@ -11,7 +11,7 @@ lein run
 
 ## License
 
-Copyright (C) 2011 FIXME
+Copyright (C) 2012 Sam Newman
 
 Distributed under the Eclipse Public License, the same as Clojure.
 
