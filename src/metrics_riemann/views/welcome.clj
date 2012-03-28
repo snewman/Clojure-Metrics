@@ -28,17 +28,26 @@
 (defn valid? [{:keys [firstname lastname]}]
   true)
 
+(defn create-counter
+  [counter-name]
+  (Metrics/newCounter (new MetricName "test" "counter" counter-name)))
+
+(def user-counter
+  ((memoize create-counter) "user-counter"))
+
+(defn inc-counter
+  [counter]
+  (.inc counter))
+
+(defn read-counter
+  [counter]
+  (.count counter))
+
 (defpage [:post "/user/add"] {:as user}
   (if (valid? user)
     (do
-      (inc-counter)
+      (inc-counter user-counter)
       (common/site-layout
-       [:p "User added, bitches!"]))    
+       [:p "User added. We have created this many users: " (read-counter user-counter)]))    
     (render "/user/add" user)))
 
-(defn inc-counter
-  []
-  (let [counter (Metrics/newCounter (new MetricName "test" "counter" "Test Counter"))]
-    (do
-      (println counter)
-      (.inc counter))))
