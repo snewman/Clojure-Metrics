@@ -3,7 +3,9 @@
             [noir.content.getting-started])
   (:use [noir.core :only [defpage defpartial render]]
         [hiccup.core :only [html]]
-        [hiccup.form :as form]))
+        [hiccup.form :as form])
+  (import com.yammer.metrics.Metrics 
+          com.yammer.metrics.core.MetricName))
 
 
 (defpage "/my-page" []
@@ -28,7 +30,15 @@
 
 (defpage [:post "/user/add"] {:as user}
   (if (valid? user)
-    (common/site-layout
-      [:p "User added!"])    
+    (do
+      (inc-counter)
+      (common/site-layout
+       [:p "User added, bitches!"]))    
     (render "/user/add" user)))
 
+(defn inc-counter
+  []
+  (let [counter (Metrics/newCounter (new MetricName "test" "counter" "Test Counter"))]
+    (do
+      (println counter)
+      (.inc counter))))
